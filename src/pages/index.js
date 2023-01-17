@@ -20,10 +20,13 @@ export default function Home() {
         className={`${Styles.main} bg-fixed bg-[url('https://sisfo.upiyptk.ac.id/images/bgweb.png')]`}
       >
         <div className="flex-col justify-center">
-          <div className="bg-yellow-300 bg-opacity-50 shadow-2xl p-11 rounded-xl border-2 flex flex-col justify-center items-center">
-            <h1 className="text-center  text-2xl font-bold text-[#62372E] mt-4">
+          <div className="bg-yellow-300 bg-opacity-50 shadow-2xl px-10 py-5 rounded-xl border-2 flex flex-col justify-center items-center">
+            <h1 className="text-center  text-2xl font-bold text-[#62372E]">
               Login
             </h1>
+            <h1 className="text-center text-[#62372E] mt-4">Akun demo</h1>
+            <h1 className="text-center text-[#62372E] mt-4">No. BP : admin</h1>
+            <h1 className="text-center text-[#62372E]">Password : admin123</h1>
             <Input className="mb-2 mt-8" placeholder="No. BP" />
             <Input type={"password"} placeholder="Password" />
             <Button

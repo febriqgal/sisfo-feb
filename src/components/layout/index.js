@@ -2,6 +2,7 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import Link from "next/link";
 import { Fragment } from "react";
 import Cetak from "../../../public/cetak.svg";
 import Download from "../../../public/download.svg";
@@ -9,12 +10,28 @@ import History from "../../../public/history.svg";
 import Perkuliahan from "../../../public/perkuliahan.svg";
 import Logo from "../../../public/sisfo.png";
 import TugasAkhir from "../../../public/tugasakhir.svg";
+import { useRouter } from "next/router";
 const navigation = [
-  { name: "Perkuliahan", icon: Perkuliahan, href: "#", current: false },
-  { name: "Download", icon: Download, href: "#", current: false },
-  { name: "History Perkuliahan", icon: History, href: "#", current: false },
-  { name: "Tugas Akhir", icon: TugasAkhir, href: "#", current: false },
-  { name: "Cetak", icon: Cetak, href: "#", current: false },
+  {
+    name: "Perkuliahan",
+    icon: Perkuliahan,
+    href: "/perkuliahan",
+    current: false,
+  },
+  { name: "Download", icon: Download, href: "/download", current: false },
+  {
+    name: "History Perkuliahan",
+    icon: History,
+    href: "history-perkuliahan",
+    current: false,
+  },
+  {
+    name: "Tugas Akhir",
+    icon: TugasAkhir,
+    href: "tugas-akhir",
+    current: false,
+  },
+  { name: "Cetak", icon: Cetak, href: "cetak", current: false },
 ];
 
 function classNames(...classes) {
@@ -22,9 +39,13 @@ function classNames(...classes) {
 }
 
 export default function Layout({ children }) {
+  const route = useRouter();
   return (
     <>
-      <Disclosure as="nav" className="bg-slate-50 border-b-2 border-[#F4954F]">
+      <Disclosure
+        as="nav"
+        className="bg-slate-50 border-b-2 border-[#F4954F] fixed z-[9999] w-full"
+      >
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
@@ -41,7 +62,12 @@ export default function Layout({ children }) {
                   </Disclosure.Button>
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                  <div className="flex flex-shrink-0 items-center gap-2">
+                  <div
+                    onClick={() => {
+                      route.push("/home");
+                    }}
+                    className="flex flex-shrink-0 items-center gap-2"
+                  >
                     <Image width={30} src={Logo} alt={"#"} />
                     <h1 className="text-xl font-bold text-[#6E5D50]">
                       Sisfo-Feb
@@ -52,7 +78,7 @@ export default function Layout({ children }) {
                       {navigation.map((e, i) => (
                         <div key={i} className={"flex gap-[2px]"}>
                           <Image src={e.icon} alt={"#"} />
-                          <a
+                          <Link
                             key={e.name}
                             href={e.href}
                             className={classNames(
@@ -64,7 +90,7 @@ export default function Layout({ children }) {
                             aria-current={e.current ? "page" : undefined}
                           >
                             {e.name}
-                          </a>
+                          </Link>
                         </div>
                       ))}
                     </div>
@@ -131,8 +157,7 @@ export default function Layout({ children }) {
                 {navigation.map((e, i) => (
                   <div key={i} className="flex gap-[2px]">
                     <Image src={e.icon} alt={"#"} />
-                    <Disclosure.Button
-                      as="a"
+                    <Link
                       href={e.href}
                       className={classNames(
                         e.current
@@ -143,7 +168,7 @@ export default function Layout({ children }) {
                       aria-current={e.current ? "page" : undefined}
                     >
                       {e.name}
-                    </Disclosure.Button>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -151,7 +176,9 @@ export default function Layout({ children }) {
           </>
         )}
       </Disclosure>
-      {children}
+      <main className="bg-fixed bg-[url('https://sisfo.upiyptk.ac.id/images/bgweb.png')]">
+        {children}
+      </main>
     </>
   );
 }
